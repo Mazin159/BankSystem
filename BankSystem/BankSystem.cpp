@@ -209,18 +209,8 @@ string ReadClientAccountNumber()
 
 int main()
 {
-	
-	sClient Client;
-	string AccountNumber = ReadClientAccountNumber();
-	if (FindClientByAccountNumber(AccountNumber, Client))
-	{
-		PrintClientCard(Client);
-	}
-	else
-	{
-		cout << "\nClient with Account Number (" << AccountNumber <<
-			") is Not Found!";
-	}
+	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
+	PrintAllClientsData(vClients);
 	system("pause>0");
 	return 0;
 		
