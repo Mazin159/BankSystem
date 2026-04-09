@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <vector>
 #include <fstream>
 #include <string>
@@ -111,7 +112,6 @@ void AddClientsToFile() {
 
 }
 
-
 vector<sClient> LoadClientsDataFromFile(string FileName) {
 	fstream MyFile;
 	vector<sClient> vClients;
@@ -137,16 +137,21 @@ vector<sClient> LoadClientsDataFromFile(string FileName) {
 
 }
 
+void PrintClientRecord(sClient Client)
+{
+	cout << "| " << left << setw(15) << Client.AccountNumber
+		<< "| " << setw(10) << Client.PinCode
+		<< "| " << setw(25) << Client.Name
+		<< "| " << setw(15) << Client.PhoneNumber
+		<< "| " << setw(12) << fixed << setprecision(2) << Client.Balance
+		<< "|\n";
+}
 
 
 
 int main()
 {
-	vector<sClient> vClients = LoadClientsDataFromFile(ClinentsFileName);
-	for (sClient Client : vClients) {
-		cout << ConvertClientRecordToString(Client) << endl;
-
-	}
+	
 
 
 	
