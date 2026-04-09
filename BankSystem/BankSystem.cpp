@@ -181,7 +181,15 @@ bool FindClientByAccountNumber(string AccountNumber, vector<sClient> vClients, s
 	}
 	return false;
 }
-
+void ShowClientCard(sClient Client)
+{
+	cout << "\nClient Found:\n";
+	cout << "----------------------\n";
+	cout << "Account Number: " << Client.AccountNumber << endl;
+	cout << "Name          : " << Client.Name << endl;
+	cout << "Phone         : " << Client.PhoneNumber << endl;
+	cout << "Balance       : " << Client.Balance << endl;
+}
 
 
 int main()
