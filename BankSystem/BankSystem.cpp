@@ -112,9 +112,43 @@ void AddClientsToFile() {
 }
 
 
+vector<sClient> LoadClientsDataFromFile(string FileName) {
+	fstream MyFile;
+	vector<sClient> vClients;
+
+	MyFile.open(FileName, ios::in);
+
+	if (MyFile.is_open()) {
+
+		string Line;
+
+		while (getline(MyFile, Line)) {
+
+			if (Line != "") {
+
+				vClients.push_back(ConvertStringToClientRecord(Line));
+
+			}
+		}
+		MyFile.close();
+
+	}
+	return vClients;
+
+}
+
+
+
+
 int main()
 {
-	
+	vector<sClient> vClients = LoadClientsDataFromFile(ClinentsFileName);
+	for (sClient Client : vClients) {
+		cout << ConvertClientRecordToString(Client) << endl;
+
+	}
+
+
 	
 	
 }
