@@ -169,6 +169,20 @@ void PrintAllClientsData(vector<sClient> vClients)
 	cout << "----------------------------------------------------------------------------------------\n";
 }
 
+bool FindClientByAccountNumber(string AccountNumber, vector<sClient> vClients, sClient& Client)
+{
+	for (sClient& C : vClients)
+	{
+		if (C.AccountNumber == AccountNumber)
+		{
+			Client = C;
+			return true;
+		}
+	}
+	return false;
+}
+
+
 
 int main()
 {
