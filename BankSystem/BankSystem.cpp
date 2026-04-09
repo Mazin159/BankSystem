@@ -1,8 +1,10 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include <string>
 
 using namespace std;
+const string ClinentsFileName = "Clients.txt";
 
 struct sClient {
 	string AccountNumber;
@@ -58,6 +60,18 @@ sClient ConvertStringToClientRecord(string S1, string Delim = "#//#") {
 
 
 	return Client;
+}
+
+void AddDataLineToFile(string stDataLine, string FileName) {
+	fstream MyFile;
+
+	MyFile.open(FileName, ios::out | ios::app);
+	if (MyFile.is_open())
+	{
+		MyFile << stDataLine << endl;
+		MyFile.close();
+	}
+
 }
 
 int main()
