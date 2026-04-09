@@ -169,9 +169,21 @@ void PrintAllClientsData(vector<sClient> vClients)
 	cout << "----------------------------------------------------------------------------------------\n";
 }
 
-bool FindClientByAccountNumber(string AccountNumber, vector<sClient> vClients, sClient& Client)
+void PrintClientCard(const sClient& Client)
 {
-	for (sClient& C : vClients)
+	cout << "\nThe following are the client details:\n";
+	cout << "\nAccount Number: " << Client.AccountNumber;
+	cout << "\nPin Code      : " << Client.PinCode;
+	cout << "\nName          : " << Client.Name;
+	cout << "\nPhone         : " << Client.PhoneNumber;
+	cout << "\nAccount Balance: " << Client.Balance << endl;
+}
+
+bool FindClientByAccountNumber(const string& AccountNumber, sClient& Client)
+{
+	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
+
+	for (const sClient& C : vClients)
 	{
 		if (C.AccountNumber == AccountNumber)
 		{
@@ -179,25 +191,41 @@ bool FindClientByAccountNumber(string AccountNumber, vector<sClient> vClients, s
 			return true;
 		}
 	}
+
 	return false;
 }
-void ShowClientCard(sClient Client)
+
+string ReadClientAccountNumber()
 {
-	cout << "\nClient Found:\n";
-	cout << "----------------------\n";
-	cout << "Account Number: " << Client.AccountNumber << endl;
-	cout << "Name          : " << Client.Name << endl;
-	cout << "Phone         : " << Client.PhoneNumber << endl;
-	cout << "Balance       : " << Client.Balance << endl;
+	string AccountNumber;
+
+	cout << "\nPlease enter Account Number? ";
+	cin >> AccountNumber;
+
+	return AccountNumber;
 }
 
 
 int main()
 {
 	
-	vector <sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
-	PrintAllClientsData(vClients);
-	system("pause>0");
+	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
+
+	string AccountNumber;
+	cout << "Enter Account Number: ";
+	cin >> AccountNumber;
+
+	sClient Client;
+
+	if (FindClientByAccountNumber(AccountNumber, vClients, Client))
+	{
+		ShowClientCard(Client);
+	}
+	else
+	{
+		cout << "Client Not Found!\n";
+	}
+
 	return 0;
 
 	
