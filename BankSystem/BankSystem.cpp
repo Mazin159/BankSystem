@@ -5,7 +5,7 @@
 #include <string>
 
 using namespace std;
-const string ClientsFileName = "Clients.txt";
+const string ClientsFileName = "NewClients.txt";
 
 struct sClient {
 	string AccountNumber;
@@ -203,6 +203,8 @@ string ReadClientAccountNumber()
 	cin >> AccountNumber;
 	return AccountNumber;
 }
+
+
 
 
 int main()
