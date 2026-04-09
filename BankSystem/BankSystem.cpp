@@ -91,10 +91,17 @@ sClient ReadClient() {
 	return Client;
 }
 
+void AddClientToFile() {
+	sClient Client = ReadClient();
+	AddDataLineToFile(ConvertClientRecordToString(Client), ClinentsFileName);
+
+}
+
+
 int main()
 {
 	
-
+	
 	
 }
 
