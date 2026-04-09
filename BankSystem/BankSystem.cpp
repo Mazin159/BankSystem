@@ -97,6 +97,20 @@ void AddClientToFile() {
 
 }
 
+void AddClientsToFile() {
+	char AddMore = 'Y';
+	do
+	{
+		system("cls");
+		cout << "Adding New Client:\n\n";
+		AddClientToFile();
+		cout << "\nClient Added Successfully, do you want to add more clients ? Y / N ? ";
+		cin >> AddMore;
+
+	} while (toupper(AddMore) == 'Y');
+
+}
+
 
 int main()
 {
