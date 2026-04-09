@@ -13,7 +13,6 @@ struct sClient {
 	bool MarkToDelete = false;
 };
 
-
 string ConvertClientRecordToString(sClient Client,string Delim = "#//#") {
 	string Record;
 	string sBalance = to_string(Client.Balance);
@@ -46,11 +45,25 @@ vector<string> SplitString(string S1, string Delim="#//#") {
 	return vString;
 }
 
+sClient ConvertStringToClientRecord(string S1, string Delim = "#//#") {
+	vector<string> vRecord;
+	sClient Client;
+	vRecord = SplitString(S1, Delim);
+
+	Client.AccountNumber = vRecord[0];
+	Client.PinCode = vRecord[1];
+	Client.Name = vRecord[2];
+	Client.PhoneNumber = vRecord[3];
+	Client.Balance = stod(vRecord[4]);
+
+
+	return Client;
+}
 
 int main()
 {
 	
-	
+
 	
 }
 
