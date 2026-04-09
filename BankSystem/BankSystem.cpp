@@ -5,7 +5,7 @@
 #include <string>
 
 using namespace std;
-const string ClinentsFileName = "Clients.txt";
+const string ClientsFileName = "Clients.txt";
 
 struct sClient {
 	string AccountNumber;
@@ -94,7 +94,7 @@ sClient ReadClient() {
 
 void AddClientToFile() {
 	sClient Client = ReadClient();
-	AddDataLineToFile(ConvertClientRecordToString(Client), ClinentsFileName);
+	AddDataLineToFile(ConvertClientRecordToString(Client), ClientsFileName);
 
 }
 
@@ -150,7 +150,7 @@ void PrintAllClientsData(vector<sClient> vClients)
 {
 	cout << "\n\t\t\tClient List (" << vClients.size() << ") Client(s)\n";
 
-	cout << "-------------------------------------------------------------------------------\n";
+	cout << "----------------------------------------------------------------------------------------\n";
 
 	cout << "| " << left << setw(15) << "Account Number"
 		<< "| " << setw(10) << "Pin Code"
@@ -159,21 +159,24 @@ void PrintAllClientsData(vector<sClient> vClients)
 		<< "| " << setw(12) << "Balance"
 		<< "|\n";
 
-	cout << "-------------------------------------------------------------------------------\n";
+	cout << "----------------------------------------------------------------------------------------\n";
 
 	for (sClient Client : vClients)
 	{
 		PrintClientRecord(Client);
 	}
 
-	cout << "-------------------------------------------------------------------------------\n";
+	cout << "----------------------------------------------------------------------------------------\n";
 }
 
 
 int main()
 {
 	
-
+	vector <sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
+	PrintAllClientsData(vClients);
+	system("pause>0");
+	return 0;
 
 	
 	
