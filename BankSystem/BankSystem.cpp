@@ -74,6 +74,23 @@ void AddDataLineToFile(string stDataLine, string FileName) {
 
 }
 
+sClient ReadClient() {
+	sClient Client;
+	cout << "Enter Account Number? ";
+
+	// Usage of std::ws will extract allthe whitespace character
+	getline(cin >> ws, Client.AccountNumber);
+	cout << "Enter PinCode? ";
+	getline(cin, Client.PinCode);
+	cout << "Enter Name? ";
+	getline(cin, Client.Name);
+	cout << "Enter Phone? ";
+	getline(cin, Client.PhoneNumber);
+	cout << "Enter AccountBalance? ";
+	cin >> Client.Balance;
+	return Client;
+}
+
 int main()
 {
 	
