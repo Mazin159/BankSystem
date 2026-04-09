@@ -146,7 +146,28 @@ void PrintClientRecord(sClient Client)
 		<< "| " << setw(12) << fixed << setprecision(2) << Client.Balance
 		<< "|\n";
 }
+void PrintAllClientsData(vector<sClient> vClients)
+{
+	cout << "\n\t\t\tClient List (" << vClients.size() << ") Client(s)\n";
 
+	cout << "-------------------------------------------------------------------------------\n";
+
+	cout << "| " << left << setw(15) << "Account Number"
+		<< "| " << setw(10) << "Pin Code"
+		<< "| " << setw(25) << "Client Name"
+		<< "| " << setw(15) << "Phone"
+		<< "| " << setw(12) << "Balance"
+		<< "|\n";
+
+	cout << "-------------------------------------------------------------------------------\n";
+
+	for (sClient Client : vClients)
+	{
+		PrintClientRecord(Client);
+	}
+
+	cout << "-------------------------------------------------------------------------------\n";
+}
 
 
 int main()
