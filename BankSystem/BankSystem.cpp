@@ -169,21 +169,22 @@ void PrintAllClientsData(vector<sClient> vClients)
 	cout << "----------------------------------------------------------------------------------------\n";
 }
 
-void PrintClientCard(const sClient& Client)
+
+void PrintClientCard(sClient Client)
 {
 	cout << "\nThe following are the client details:\n";
-	cout << "\nAccount Number: " << Client.AccountNumber;
-	cout << "\nPin Code      : " << Client.PinCode;
-	cout << "\nName          : " << Client.Name;
-	cout << "\nPhone         : " << Client.PhoneNumber;
-	cout << "\nAccount Balance: " << Client.Balance << endl;
+	cout << "\nAccout Number: " << Client.AccountNumber;
+	cout << "\nPin Code : " << Client.PinCode;
+	cout << "\nName : " << Client.Name;
+	cout << "\nPhone : " << Client.PhoneNumber;
+	cout << "\nAccount Balance: " << Client.Balance;
 }
 
-bool FindClientByAccountNumber(const string& AccountNumber, sClient& Client)
+bool FindClientByAccountNumber(string AccountNumber, sClient& Client)
 {
 	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
 
-	for (const sClient& C : vClients)
+	for (sClient C : vClients)
 	{
 		if (C.AccountNumber == AccountNumber)
 		{
@@ -197,11 +198,9 @@ bool FindClientByAccountNumber(const string& AccountNumber, sClient& Client)
 
 string ReadClientAccountNumber()
 {
-	string AccountNumber;
-
-	cout << "\nPlease enter Account Number? ";
+	string AccountNumber = "";
+	cout << "\nPlease enter AccountNumber? ";
 	cin >> AccountNumber;
-
 	return AccountNumber;
 }
 
@@ -209,26 +208,19 @@ string ReadClientAccountNumber()
 int main()
 {
 	
-	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
-
-	string AccountNumber;
-	cout << "Enter Account Number: ";
-	cin >> AccountNumber;
-
 	sClient Client;
-
-	if (FindClientByAccountNumber(AccountNumber, vClients, Client))
+	string AccountNumber = ReadClientAccountNumber();
+	if (FindClientByAccountNumber(AccountNumber, Client))
 	{
-		ShowClientCard(Client);
+		PrintClientCard(Client);
 	}
 	else
 	{
-		cout << "Client Not Found!\n";
+		cout << "\nClient with Account Number (" << AccountNumber <<
+			") is Not Found!";
 	}
-
+	system("pause>0");
 	return 0;
-
-	
-	
+		
 }
 
