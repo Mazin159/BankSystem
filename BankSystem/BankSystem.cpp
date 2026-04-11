@@ -17,12 +17,16 @@ struct sClient {
 };
 void PrintClientCard(sClient Client)
 {
-	cout << "\nThe following are the client details:\n";
-	cout << "\nAccout Number: " << Client.AccountNumber;
-	cout << "\nPin Code : " << Client.PinCode;
-	cout << "\nName : " << Client.Name;
-	cout << "\nPhone : " << Client.PhoneNumber;
-	cout << "\nAccount Balance: " << Client.Balance;
+	cout << "\nThe following are the client details:";
+	cout << "\n|---------------|-------------------------\n";
+	cout << "\n|Account Number | " << Client.AccountNumber;
+	cout << "\n|Pin Code       | " << Client.PinCode;
+	cout << "\n|Name           | " << Client.Name;
+	cout << "\n|Phone          | " << Client.PhoneNumber;
+	cout << "\n|Account Balance| " << Client.Balance;
+	cout << "\n----------------|-------------------------\n";
+
+
 }
 
 string ReadClientAccountNumber()
@@ -344,9 +348,7 @@ bool FindClientAndPrintCard() {
 
 int main()
 {
-	vector <sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
-	sClient Client;
-	FindClientByAccountNumber(ReadClientAccountNumber(), vClients, Client);
+	FindClientAndPrintCard();
 system("pause>0");
 	return 0;
 		
