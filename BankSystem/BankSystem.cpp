@@ -242,8 +242,6 @@ bool DeleteClientByAccoutNumber(string AccountNumber, vector<sClient>& vClients)
 	return false;
 }
 
-
-
 void PrintClientRecord(sClient Client)
 {
 	cout << "| " << left << setw(15) << Client.AccountNumber
@@ -275,11 +273,54 @@ void PrintAllClientsData(vector<sClient> vClients)
 
 	cout << "----------------------------------------------------------------------------------------\n";
 }
+sClient ChangeClientRecord(string AccountNumber)
+{
+	sClient Client;
+	Client.AccountNumber = AccountNumber;
+	cout << "\n\nEnter PinCode? ";
+	getline(cin >> ws, Client.PinCode);
+	cout << "Enter Name? ";
+	getline(cin, Client.Name);
+	cout << "Enter Phone? ";
+	getline(cin, Client.PhoneNumber);
+	cout << "Enter AccountBalance? ";
+	cin >> Client.Balance;
+	return Client;
+}
 
-
-
-
-
+bool UpdateClientByAccountNumber(string AccountNumber, vector
+	<sClient>& vClients)
+{
+	sClient Client;
+	char Answer = 'n';
+	if (FindClientByAccountNumber(AccountNumber, vClients,
+		Client))
+	{
+		PrintClientCard(Client);
+		cout << "\n\nAre you sure you want update this client? y/n? ";
+			cin >> Answer;
+		if (Answer == 'y' || Answer == 'Y')
+		{
+			for (sClient& C : vClients)
+			{
+				if (C.AccountNumber == AccountNumber)
+				{
+					C = ChangeClientRecord(AccountNumber);
+					break;
+				}
+			}
+			SaveClientsDataToFile(vClients,ClientsFileName);
+			cout << "\n\nClient Updated Successfully.";
+			return true;
+		}
+	}
+	else
+	{
+		cout << "\nClient with Account Number (" << AccountNumber
+			<< ") is Not Found!";
+		return false;
+	}
+}
 
 
 
