@@ -327,13 +327,27 @@ bool UpdateClientByAccountNumber(string AccountNumber, vector<sClient>& vClients
 	}
 }
 
+bool FindClientAndPrintCard() {
+	vector <sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
+	sClient Client;
+	string AccountNumber = ReadClientAccountNumber();
+	if (FindClientByAccountNumber(AccountNumber, vClients, Client)) {
+		PrintClientCard(Client);
+	}
+	else
+	{
+		cout << "\nClient with Account Number (" << AccountNumber << ") is Not Found!";
+		return false;
+	}
+}
 
 
 int main()
 {
 	vector <sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
-	PrintAllClientsData(vClients);
-	system("pause>0");
+	sClient Client;
+	FindClientByAccountNumber(ReadClientAccountNumber(), vClients, Client);
+system("pause>0");
 	return 0;
 		
 }
