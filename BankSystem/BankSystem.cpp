@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <iomanip>
 #include <vector>
 #include <fstream>
@@ -288,17 +288,18 @@ sClient ChangeClientRecord(string AccountNumber)
 	return Client;
 }
 
-bool UpdateClientByAccountNumber(string AccountNumber, vector
-	<sClient>& vClients)
+bool UpdateClientByAccountNumber(string AccountNumber, vector<sClient>& vClients)
 {
 	sClient Client;
 	char Answer = 'n';
-	if (FindClientByAccountNumber(AccountNumber, vClients,
-		Client))
+
+	if (FindClientByAccountNumber(AccountNumber, vClients, Client))
 	{
 		PrintClientCard(Client);
+
 		cout << "\n\nAre you sure you want update this client? y/n? ";
-			cin >> Answer;
+		cin >> Answer;
+
 		if (Answer == 'y' || Answer == 'Y')
 		{
 			for (sClient& C : vClients)
@@ -309,10 +310,14 @@ bool UpdateClientByAccountNumber(string AccountNumber, vector
 					break;
 				}
 			}
-			SaveClientsDataToFile(vClients,ClientsFileName);
+
+			SaveClientsDataToFile(vClients, ClientsFileName);
 			cout << "\n\nClient Updated Successfully.";
 			return true;
 		}
+
+		// 👇 مهم جدًا
+		return false;
 	}
 	else
 	{
@@ -326,7 +331,7 @@ bool UpdateClientByAccountNumber(string AccountNumber, vector
 
 int main()
 {
-	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
+	vector <sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
 	PrintAllClientsData(vClients);
 	system("pause>0");
 	return 0;
