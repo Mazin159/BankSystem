@@ -6,6 +6,8 @@
 
 using namespace std;
 const string ClientsFileName = "NewClients.txt";
+enum enMenue{ ShowClient=1 , AddClient , DeleteClient , UpdateClient ,FindClient, Exit};
+void ShowMainMenue();
 
 struct sClient {
 	string AccountNumber;
@@ -15,6 +17,8 @@ struct sClient {
 	double Balance;
 	bool MarkToDelete = false;
 };
+
+
 void PrintClientCard(sClient Client)
 {
 	cout << "\nThe following are the client details:";
@@ -337,20 +341,180 @@ bool FindClientAndPrintCard() {
 	string AccountNumber = ReadClientAccountNumber();
 	if (FindClientByAccountNumber(AccountNumber, vClients, Client)) {
 		PrintClientCard(Client);
+		return true;
 	}
 	else
 	{
 		cout << "\nClient with Account Number (" << AccountNumber << ") is Not Found!";
 		return false;
 	}
+	return false;
+}
+
+enMenue GetUserChoice() {
+	int Choice;
+	do
+	{
+	cout << "Choose what do you want to do? [1 to 6]? ";
+	cin >> Choice;
+
+	} while (Choice < 1 || Choice > 6);
+
+	return (enMenue)Choice;
+
+}
+void ShowAllClientsScreen() {
+	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
+
+	PrintAllClientsData(vClients);
+}
+void ShowDeleteClientScreen()
+{
+	cout << "\n-----------------------------------\n";
+	cout << "\tDelete Client Screen";
+	cout << "\n-----------------------------------\n";
+
+	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
+
+	string AccountNumber = ReadClientAccountNumber();
+
+	DeleteClientByAccoutNumber(AccountNumber, vClients);
+}
+void ShowUpdateClientScreen()
+{
+	cout << "\n-----------------------------------\n";
+	cout << "\tUpdate Client Info Screen";
+	cout << "\n-----------------------------------\n";
+
+	vector<sClient> vClients =
+		LoadClientsDataFromFile(ClientsFileName);
+
+	string AccountNumber = ReadClientAccountNumber();
+
+	UpdateClientByAccountNumber(AccountNumber, vClients);
+}
+void ShowAddNewClientsScreen()
+{
+	cout << "\n-----------------------------------\n";
+	cout << "\tAdd New Clients Screen";
+	cout << "\n-----------------------------------\n";
+
+	AddClientsToFile();
+}
+void ShowFindClientScreen()
+{
+	cout << "\n-----------------------------------\n";
+	cout << "\tFind Client Screen";
+	cout << "\n-----------------------------------\n";
+
+	vector<sClient> vClients =
+		LoadClientsDataFromFile(ClientsFileName);
+
+	sClient Client;
+
+	string AccountNumber = ReadClientAccountNumber();
+
+	if (FindClientByAccountNumber(AccountNumber, vClients, Client))
+		PrintClientCard(Client);
+	else
+		cout << "\nClient with Account Number[" << AccountNumber << "] is not found!";
+}
+void ShowEndScreen()
+{
+	cout << "\n-----------------------------------\n";
+	cout << "\tProgram Ends :-)";
+	cout << "\n-----------------------------------\n";
+}
+void GoBackToMainMenue()
+{
+	cout << "\n\nPress any key to go back to Main Menue...";
+	system("pause>0");
+	ShowMainMenue();
 }
 
 
+void PerformMenuOption( enMenue MainMenuChoice) {
+	
+
+		switch (MainMenuChoice)
+		{
+		case enMenue::ShowClient:
+		{
+			system("cls");
+			ShowAllClientsScreen();
+			GoBackToMainMenue();
+			break;
+		}
+
+		case enMenue::AddClient:
+		{
+			system("cls");
+			ShowAddNewClientsScreen();
+			GoBackToMainMenue();
+			break;
+		}
+
+		case enMenue::DeleteClient:
+		{
+			system("cls");
+			ShowDeleteClientScreen();
+			GoBackToMainMenue();
+			break;
+		}
+
+		case enMenue::UpdateClient:
+		{
+			system("cls");
+			ShowUpdateClientScreen();
+			GoBackToMainMenue();
+			break;
+		}
+
+		case enMenue::FindClient:
+		{
+			system("cls");
+			ShowFindClientScreen();
+
+			GoBackToMainMenue();
+			break;
+		}
+
+		case enMenue::Exit:
+		{
+			system("cls");
+			ShowEndScreen();
+			break;
+		}
+		}
+
+	
+
+};
+
+void ShowMainMenue()
+{
+	system("cls");
+
+	cout << "====================================================\n";
+	cout << "\t\tMain Menu Screen\n";
+	cout << "====================================================\n";
+	cout << "\t[1] Show Client List.\n";
+	cout << "\t[2] Add New Client.\n";
+	cout << "\t[3] Delete Client.\n";
+	cout << "\t[4] Update Client Info.\n";
+	cout << "\t[5] Find Client.\n";
+	cout << "\t[6] Exit.\n";
+	cout << "====================================================\n";
+
+	PerformMenuOption(GetUserChoice());
+}
+
 int main()
 {
-	FindClientAndPrintCard();
-system("pause>0");
-	return 0;
-		
+
+	ShowMainMenue();
+
+		return 0;
+	
 }
 
