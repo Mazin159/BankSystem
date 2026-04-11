@@ -48,6 +48,21 @@ vector<string> SplitString(string S1, string Delim="#//#") {
 	return vString;
 }
 
+bool FindClientByAccountNumber(string AccountNumber, sClient& Client)
+{
+	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
+
+	for (sClient C : vClients)
+	{
+		if (C.AccountNumber == AccountNumber)
+		{
+			Client = C;
+			return true;
+		}
+	}
+
+	return false;
+}
 sClient ConvertStringToClientRecord(string S1, string Delim = "#//#") {
 	vector<string> vRecord;
 	sClient Client;
@@ -78,11 +93,21 @@ void AddDataLineToFile(string stDataLine, string FileName) {
 sClient ReadClient() {
 	sClient Client;
 	cout << "Enter Account Number? ";
+	bool IsExiste = false;
 
 	// Usage of std::ws will extract allthe whitespace character
-	getline(cin >> ws, Client.AccountNumber);
+	do
+	{
+      getline(cin >> ws, Client.AccountNumber);
+	  if (FindClientByAccountNumber(Client.AccountNumber, Client)) {
+		  IsExiste = true;
+	  }
+
+
+	} while (IsExiste);
+	
 	cout << "Enter PinCode? ";
-	getline(cin, Client.PinCode);
+	getline(cin >> ws, Client.PinCode);
 	cout << "Enter Name? ";
 	getline(cin, Client.Name);
 	cout << "Enter Phone? ";
@@ -180,21 +205,6 @@ void PrintClientCard(sClient Client)
 	cout << "\nAccount Balance: " << Client.Balance;
 }
 
-bool FindClientByAccountNumber(string AccountNumber, sClient& Client)
-{
-	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
-
-	for (sClient C : vClients)
-	{
-		if (C.AccountNumber == AccountNumber)
-		{
-			Client = C;
-			return true;
-		}
-	}
-
-	return false;
-}
 
 string ReadClientAccountNumber()
 {
