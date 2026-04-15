@@ -823,6 +823,7 @@ void ShowMainMenue()
 
 int main()
 {	
+	ShowMainMenue();
 		return 0;	
 }
 
