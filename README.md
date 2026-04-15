@@ -1,10 +1,13 @@
-🏦 Bank Management System (C++ Console Application)
+🏦 Bank Management System
+📌 Overview
 📌 Overview
 
+A simple yet powerful Bank Management System built using C++.
+This project simulates real-world banking operations including client management and financial transactions, with persistent data storage using file handling.
+
+💡 Designed to demonstrate strong understanding of programming fundamentals and clean code structure.
 This project is a simple Bank Management System built using C++ as a console application.
 It allows users to manage bank clients and perform basic banking operations such as adding clients, updating their information, deleting accounts, and handling financial transactions.
-
-The system uses file handling to store data persistently, making it practical and closer to real-world applications.
 
 🚀 Features
 👤 Client Management
