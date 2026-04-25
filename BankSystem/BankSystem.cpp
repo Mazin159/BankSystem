@@ -6,6 +6,7 @@
 
 using namespace std;
 const string ClientsFileName = "NewClients.txt";
+const string UsersFileName = "Users.txt";
 enum class enMainMenue{ enShowClient = 1 , enAddClient , enDeleteClient , enUpdateClient ,enFindClient,enTransactions, enExit};
 enum enTransactions { enDeposit = 1, enWithdraw, enTotalBalances , enMainMenu };
 void ShowMainMenue();
