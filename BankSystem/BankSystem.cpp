@@ -10,7 +10,6 @@ enum class enMainMenue{ enShowClient = 1 , enAddClient , enDeleteClient , enUpda
 enum enTransactions { enDeposit = 1, enWithdraw, enTotalBalances , enMainMenu };
 void ShowMainMenue();
 void ShowTransactionMenu();
-
 struct sClient {
 	string AccountNumber;
 	string Name;
@@ -19,22 +18,19 @@ struct sClient {
 	double Balance;
 	bool MarkToDelete = false;
 };
-
-
 void PrintClientCard(sClient Client)
 {
 	cout << "\nThe following are the client details:";
-	cout << "\n|---------------|-------------------------\n";
+	cout << "\n|-----------------------------------------";
 	cout << "\n|Account Number | " << Client.AccountNumber;
 	cout << "\n|Pin Code       | " << Client.PinCode;
 	cout << "\n|Name           | " << Client.Name;
 	cout << "\n|Phone          | " << Client.PhoneNumber;
 	cout << "\n|Account Balance| " << Client.Balance;
-	cout << "\n----------------|-------------------------\n";
+	cout << "\n|-----------------------------------------\n";
 
 
 }
-
 string ReadClientAccountNumber()
 {
 	string AccountNumber = "";
@@ -51,7 +47,6 @@ string ConvertClientRecordToString(sClient Client,string Delim = "#//#") {
 
 		return Record;
 }
-
 vector<string> SplitString(string S1, string Delim="#//#") {
 	string Word;
 	vector<string> vString;
@@ -73,7 +68,6 @@ vector<string> SplitString(string S1, string Delim="#//#") {
 
 	return vString;
 }
-
 sClient ConvertStringToClientRecord(string S1, string Delim = "#//#") {
 	vector<string> vRecord;
 	sClient Client;
@@ -112,7 +106,6 @@ vector<sClient> LoadClientsDataFromFile(string FileName) {
 	return vClients;
 
 }
-
 bool FindClientByAccountNumber(string AccountNumber, vector<sClient> vClients, sClient& Client)
 {
 	
@@ -127,7 +120,6 @@ bool FindClientByAccountNumber(string AccountNumber, vector<sClient> vClients, s
 
 	return false;
 }
-
 void AddDataLineToFile(string stDataLine, string FileName) {
 	fstream MyFile;
 
@@ -139,7 +131,6 @@ void AddDataLineToFile(string stDataLine, string FileName) {
 	}
 
 }
-
 sClient ReadClient() {
 	
 	sClient Client;
@@ -172,13 +163,11 @@ sClient ReadClient() {
 	cin >> Client.Balance;
 	return Client;
 }
-
 void AddClientToFile() {
 	sClient Client = ReadClient();
 	AddDataLineToFile(ConvertClientRecordToString(Client), ClientsFileName);
 
 }
-
 void AddClientsToFile() {
 	char AddMore = 'Y';
 	do
@@ -192,7 +181,6 @@ void AddClientsToFile() {
 	} while (toupper(AddMore) == 'Y');
 
 }
-
 bool MarkClientForDeleteByAccountNumber(string AccountNumber,
 	vector <sClient>& vClients)
 {
@@ -224,7 +212,6 @@ void SaveClientsDataToFile(vector<sClient> vClients,string FileName) {
 		MyFile.close();
 	}
 }
-
 bool DeleteClientByAccoutNumber(string AccountNumber, vector<sClient>& vClients) {
 	
 	sClient Client;
@@ -251,7 +238,6 @@ bool DeleteClientByAccoutNumber(string AccountNumber, vector<sClient>& vClients)
 
 	return false;
 }
-
 void PrintClientRecord(sClient Client)
 {
 	cout << "| " << left << setw(15) << Client.AccountNumber
@@ -306,7 +292,6 @@ sClient ChangeClientRecord(string AccountNumber)
 	cin >> Client.Balance;
 	return Client;
 }
-
 bool UpdateClientByAccountNumber(string AccountNumber, vector<sClient>& vClients)
 {
 	sClient Client;
@@ -345,7 +330,6 @@ bool UpdateClientByAccountNumber(string AccountNumber, vector<sClient>& vClients
 		return false;
 	}
 }
-
 bool FindClientAndPrintCard() {
 	vector <sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
 	sClient Client;
@@ -361,7 +345,6 @@ bool FindClientAndPrintCard() {
 	}
 	return false;
 }
-
 bool DepositBalanceToClientByAccountNumber(string AccountNumber, double Amount, vector <sClient>& vClients) {
 	char Answer = 'n';
 	cout << "\n\nAre you sure you want perfrom this transaction? y / n ? ";
@@ -382,7 +365,6 @@ bool DepositBalanceToClientByAccountNumber(string AccountNumber, double Amount, 
 		return false;
 	}
 }
-
 bool Deposit(string AccountNumber, vector<sClient>& vClients,double DepositAmount) {
 	for (sClient& C : vClients)
 	{
@@ -403,7 +385,6 @@ double AccountTotalBalanceByAccountNumber(string AccountNumber, vector<sClient> 
 	}
 	return TotalBalance;
 }
-
 bool DepositByAccountNumber(string AccountNumber, vector<sClient> &vClients) {
 	sClient Client;
 	double DepositAmount;
@@ -522,7 +503,6 @@ bool WithdrawByAccountNumber(string AccountNumber, vector<sClient>& vClients) {
 
 	return true;
 }
-
 void PrintBalancesList(vector<sClient> vClients) {
 
 	double TotalBalances = 0;
@@ -564,7 +544,6 @@ enMainMenue GetUserChoiceForMainMenu() {
 	return (enMainMenue)Choice;
 
 }
-
 enTransactions GetUserChoiceForTransactions() {
 
 	int Choice;
@@ -660,9 +639,6 @@ void ShowPrintBalancesList() {
 	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
 	PrintBalancesList(vClients);
 }
-
-
-
 void GoBackToMainMenue()
 {
 	cout << "\n\nPress any key to go back to Main Menue...";
@@ -675,7 +651,6 @@ void GoBackToTransactions()
 	system("pause>0");
 	ShowTransactionMenu();
 }
-
 void PerformMenuOption( enMainMenue MainMenuChoice) {
 	
 
@@ -742,7 +717,6 @@ void PerformMenuOption( enMainMenue MainMenuChoice) {
 	
 
 };
-
 void PerformTransactions(enTransactions Choice) {
 
 	switch (Choice) {
@@ -785,7 +759,6 @@ void PerformTransactions(enTransactions Choice) {
 	}
 
 }
-
 void ShowTransactionMenu() {
 	system("cls");
 
@@ -800,7 +773,6 @@ void ShowTransactionMenu() {
 	cout << "====================================================\n";
 	PerformTransactions(GetUserChoiceForTransactions());
 }
-
 void ShowMainMenue()
 {
 	system("cls");
