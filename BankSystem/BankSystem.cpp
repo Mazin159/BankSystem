@@ -7,7 +7,23 @@
 using namespace std;
 const string ClientsFileName = "NewClients.txt";
 const string UsersFileName = "Users.txt";
-enum class enMainMenue{ enShowClient = 1 , enAddClient , enDeleteClient , enUpdateClient ,enFindClient,enTransactions, enExit};
+enum enPermissions {
+	pShowClients = 1,
+	pAddClient = 2,
+	pDeleteClient = 4,
+	pUpdateClient = 8,
+	pFindClient = 16,
+	pTransactions = 32,
+	pManageUsers = 64,
+	pAll = -1
+};
+struct sUser {
+	string Name;
+	string Password;
+	int Permissions;
+	bool MarkForDelete = false;
+};
+enum class enMainMenue{ enShowClient = 1 , enAddClient , enDeleteClient , enUpdateClient ,enFindClient,enTransactions,enMangeUsers, enLogout};
 enum enTransactions { enDeposit = 1, enWithdraw, enTotalBalances , enMainMenu };
 void ShowMainMenue();
 void ShowTransactionMenu();
@@ -558,6 +574,23 @@ enTransactions GetUserChoiceForTransactions() {
 	return (enTransactions)Choice;
 
 }
+// Extenission's :
+string ConvertUserToString(sUser User, string Delmi = "#//#") {
+	string s1;
+	s1 = User.Name + Delmi + User.Password + Delmi + to_string(User.Permissions);
+	return s1;
+}
+sUser ConvertStringToUser(string UserString, string Delmi = "#//#") {
+	sUser User;
+	vector <string> vString = SplitString(UserString, Delmi);
+	
+	User.Name = vString[0];
+	User.Password = vString[1];
+	User.Permissions = stoi(vString[2]);
+
+	return User;
+}
+
 void ShowAllClientsScreen() {
 	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
 
@@ -706,7 +739,7 @@ void PerformMenuOption( enMainMenue MainMenuChoice) {
 
 	}
 
-	case enMainMenue::enExit:
+	case enMainMenue::enLogout:
 	{
 		system("cls");
 		ShowEndScreen();
@@ -794,9 +827,20 @@ void ShowMainMenue()
 }
 
 
+
+
+
 int main()
 {	
-	ShowMainMenue();
+	//ShowMainMenue();
+
+	sUser User;
+	User.Name = "admin";
+	User.Password = "1234";
+	User.Permissions = -1;
+	AddDataLineToFile(ConvertUserToString(User), UsersFileName);
+
+
 		return 0;	
 }
 
