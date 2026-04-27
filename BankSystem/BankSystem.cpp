@@ -17,7 +17,7 @@ enum enPermissions {
 	pManageUsers = 64,
 	pAll = -1
 };
-struct sUser {
+struct stUser {
 	string Name;
 	string Password;
 	int Permissions;
@@ -575,13 +575,13 @@ enTransactions GetUserChoiceForTransactions() {
 
 }
 // Extenission's :
-string ConvertUserToString(sUser User, string Delmi = "#//#") {
+string ConvertUserToString(stUser User, string Delmi = "#//#") {
 	string s1;
 	s1 = User.Name + Delmi + User.Password + Delmi + to_string(User.Permissions);
 	return s1;
 }
-sUser ConvertStringToUser(string UserString, string Delmi = "#//#") {
-	sUser User;
+stUser ConvertStringToUser(string UserString, string Delmi = "#//#") {
+	stUser User;
 	vector <string> vString = SplitString(UserString, Delmi);
 	
 	User.Name = vString[0];
@@ -589,6 +589,36 @@ sUser ConvertStringToUser(string UserString, string Delmi = "#//#") {
 	User.Permissions = stoi(vString[2]);
 
 	return User;
+}
+vector<stUser> LoadUserssDataFromFile(string FileName) {
+	fstream MyFile;
+	vector<stUser> vUsers;
+
+	MyFile.open(FileName, ios::in);
+
+	if (MyFile.is_open()) {
+		string Line;
+		while (getline(MyFile, Line)) {
+
+			if (Line != "") {
+				vUsers.push_back(ConvertStringToUser(Line));
+			}
+		}
+		MyFile.close();
+	}
+	return vUsers;
+}
+bool FindUserByUsernameAndPassword(string UserName,string Password, vector<stUser> vUsers, stUser& User)
+{
+	for (stUser U : vUsers)
+	{
+		if (U.Name == UserName && U.Password == Password)
+		{
+			User = U;
+			return true;
+		}
+	}
+	return false;
 }
 
 void ShowAllClientsScreen() {
@@ -834,12 +864,11 @@ int main()
 {	
 	//ShowMainMenue();
 
-	sUser User;
-	User.Name = "admin";
-	User.Password = "1234";
-	User.Permissions = -1;
-	AddDataLineToFile(ConvertUserToString(User), UsersFileName);
+	/*vector <stUser> vUsers = LoadUserssDataFromFile(UsersFileName);
 
+	for (stUser User : vUsers) {
+		cout << User.Name + "   " + User.Password;
+	}*/
 
 		return 0;	
 }
