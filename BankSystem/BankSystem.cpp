@@ -17,7 +17,15 @@ enum enPermissions {
 	pManageUsers = 64,
 	pAll = -1
 };
-
+enum enManageUsersMenu
+{
+	muListUsers = 1,
+	muAddUser,
+	muDeleteUser,
+	muUpdateUser,
+	muFindUser,
+	muMainMenu
+};
 enum class enMainMenue{
 	enShowClient = 1 ,
 	enAddClient ,
@@ -34,6 +42,7 @@ enum enTransactions {
 	enTotalBalances,
 	enMainMenu
 };
+
 struct stUser {
 	string Name;
 	string Password;
@@ -569,10 +578,10 @@ enMainMenue GetUserChoiceForMainMenu() {
 	int Choice;
 	do
 	{
-	cout << "Choose what do you want to do? [1 to 9]? ";
+	cout << "Choose what do you want to do? [1 to 8]? ";
 	cin >> Choice;
 
-	} while (Choice < 1 || Choice > 9);
+	} while (Choice < 1 || Choice > 8);
 
 	return (enMainMenue)Choice;
 
@@ -591,6 +600,18 @@ enTransactions GetUserChoiceForTransactions() {
 
 }
 // Extenission's :
+enManageUsersMenu GetUserChoiceForMangeMenue() {
+	int Choice;
+	do
+	{
+		cout << "Choose what do you want to do? [1 to 6]? ";
+		cin >> Choice;
+
+	} while (Choice < 1 || Choice > 6);
+
+	return (enManageUsersMenu)Choice;
+
+}
 string ConvertUserToString(stUser User, string Delmi = "#//#") {
 	string s1;
 	s1 = User.Name + Delmi + User.Password + Delmi + to_string(User.Permissions);
@@ -705,7 +726,13 @@ stUser ReadLoginInfo() {
 
 		return User;
 }
-
+void PrintUserRecord(stUser User)
+{
+	cout << "| " << left << setw(20) << User.Name
+		<< "| " << setw(15) << User.Password
+		<< "| " << setw(10) << User.Permissions
+		<< "|\n";
+}
 
 void ShowAllClientsScreen() {
 	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
@@ -827,9 +854,7 @@ void PerformMenuOption( enMainMenue MainMenuChoice,stUser User) {
 
 			ShowAccessDeniedMessage(User);
 		}
-		break;
-
-	
+		break;	
 	}
 
 	case enMainMenue::enAddClient:
@@ -856,8 +881,6 @@ void PerformMenuOption( enMainMenue MainMenuChoice,stUser User) {
 		else {
 			ShowAccessDeniedMessage(User);
 		}
-		
-		
 		break;
 	}
 
@@ -909,10 +932,6 @@ void PerformMenuOption( enMainMenue MainMenuChoice,stUser User) {
 		break;
 	}
 	}
-		
-
-	
-
 };
 void PerformTransactions(enTransactions Choice,stUser User) {
 
