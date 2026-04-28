@@ -796,7 +796,6 @@ void AddUserToFile()
 	stUser User = ReadUser();
 	AddDataLineToFile(ConvertUserToString(User), UsersFileName);
 }
-
 void AddUsers()
 {
 	char AddMore = 'Y';
@@ -825,7 +824,18 @@ bool FindUserByUsername(string Username, vector<stUser> vUsers, stUser& User)
 	}
 	return false;
 }
-
+bool MarkUserForDelete(string Username, vector<stUser>& vUsers)
+{
+	for (stUser& U : vUsers)
+	{
+		if (U.Name == Username)
+		{
+			U.MarkForDelete = true;
+			return true;
+		}
+	}
+	return false;
+}
 void ShowAllClientsScreen() {
 	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
 
