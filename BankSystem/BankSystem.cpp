@@ -731,7 +731,7 @@ void PrintUserRecord(stUser User)
 	cout << "| " << left << setw(20) << User.Name
 		<< "| " << setw(15) << User.Password
 		<< "| " << setw(10) << User.Permissions
-		<< "|\n";
+		<< " |\n";
 }
 void PrintAllUsersData(vector<stUser> vUsers)
 {
@@ -758,6 +758,38 @@ void ShowAllUsersScreen()
 	vector<stUser> vUsers = LoadUserssDataFromFile(UsersFileName);
 
 	PrintAllUsersData(vUsers);
+}
+stUser ReadUser()
+{
+	stUser User;
+	vector<stUser> vUsers = LoadUserssDataFromFile(UsersFileName);
+	bool IsExist = false;
+
+	do
+	{
+		IsExist = false;
+
+		cout << "Enter Username? ";
+		cin >> User.Name;
+
+		for (stUser U : vUsers)
+		{
+			if (U.Name == User.Name)
+			{
+				IsExist = true;
+				cout << "User already exists, try another username!\n";
+				break;
+			}
+		}
+
+	} while (IsExist);
+
+	cout << "Enter Password? ";
+	cin >> User.Password;
+
+	User.Permissions = ReadPermissionsToSet();
+
+	return User;
 }
 
 void ShowAllClientsScreen() {
@@ -1088,7 +1120,8 @@ int main()
 	User.Password = "333";
 	User.Permissions = 16;
 
-	PrintUserRecord(User);
+	//PrintUserRecord(User);
+	//ShowAllUsersScreen();
 
 	//ShowMainMenue();
 
