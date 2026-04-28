@@ -929,7 +929,14 @@ bool UpdateUserByUsername(string Username, vector<stUser>& vUsers)
 	return false;
 }
 
+void ShowAddNewUserScreen()
+{
+	cout << "\n-----------------------------------\n";
+	cout << "\tAdd New User Screen";
+	cout << "\n-----------------------------------\n";
 
+	AddUsers();
+}
 void ShowAllClientsScreen() {
 	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
 
