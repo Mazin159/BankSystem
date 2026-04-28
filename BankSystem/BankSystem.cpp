@@ -753,6 +753,12 @@ void PrintAllUsersData(vector<stUser> vUsers)
 
 	cout << "-------------------------------------------------------------\n";
 }
+void ShowAllUsersScreen()
+{
+	vector<stUser> vUsers = LoadUserssDataFromFile(UsersFileName);
+
+	PrintAllUsersData(vUsers);
+}
 
 void ShowAllClientsScreen() {
 	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
