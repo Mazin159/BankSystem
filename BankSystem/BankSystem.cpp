@@ -1119,6 +1119,7 @@ int main()
 	User.Name = "Ahmed";
 	User.Password = "333";
 	User.Permissions = 16;
+	ReadUser();
 
 	//PrintUserRecord(User);
 	//ShowAllUsersScreen();
