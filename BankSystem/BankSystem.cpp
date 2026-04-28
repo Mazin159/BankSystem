@@ -791,6 +791,40 @@ stUser ReadUser()
 
 	return User;
 }
+void AddUserToFile()
+{
+	stUser User = ReadUser();
+	AddDataLineToFile(ConvertUserToString(User), UsersFileName);
+}
+
+void AddUsers()
+{
+	char AddMore = 'Y';
+
+	do
+	{
+		system("cls");
+		cout << "Adding New User:\n\n";
+
+		AddUserToFile();
+
+		cout << "\nUser Added Successfully, Add more? Y/N? ";
+		cin >> AddMore;
+
+	} while (toupper(AddMore) == 'Y');
+}
+bool FindUserByUsername(string Username, vector<stUser> vUsers, stUser& User)
+{
+	for (stUser U : vUsers)
+	{
+		if (U.Name == Username)
+		{
+			User = U;
+			return true;
+		}
+	}
+	return false;
+}
 
 void ShowAllClientsScreen() {
 	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
@@ -1119,7 +1153,7 @@ int main()
 	User.Name = "Ahmed";
 	User.Password = "333";
 	User.Permissions = 16;
-	ReadUser();
+	//AddUserToFile();
 
 	//PrintUserRecord(User);
 	//ShowAllUsersScreen();
