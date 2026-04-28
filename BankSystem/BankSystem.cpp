@@ -836,6 +836,52 @@ bool MarkUserForDelete(string Username, vector<stUser>& vUsers)
 	}
 	return false;
 }
+void SaveUsersToFile(vector<stUser> vUsers)
+{
+	fstream MyFile;
+	MyFile.open(UsersFileName, ios::out);
+
+	if (MyFile.is_open())
+	{
+		for (stUser U : vUsers)
+		{
+			if (!U.MarkForDelete)
+			{
+				MyFile << ConvertUserToString(U) << endl;
+			}
+		}
+		MyFile.close();
+	}
+}
+bool DeleteUserByUsername(string Username, vector<stUser>& vUsers)
+{
+	stUser User;
+
+	if (FindUserByUsername(Username, vUsers, User))
+	{
+		char Ans;
+		cout << "\nAre you sure you want delete this user? y/n? ";
+		cin >> Ans;
+
+		if (Ans == 'y' || Ans == 'Y')
+		{
+			MarkUserForDelete(Username, vUsers);
+			SaveUsersToFile(vUsers);
+
+			vUsers = LoadUserssDataFromFile(UsersFileName);
+
+			cout << "\nUser Deleted Successfully.\n";
+			return true;
+		}
+	}
+	else
+	{
+		cout << "\nUser Not Found!\n";
+		return false;
+	}
+
+	return false;
+}
 void ShowAllClientsScreen() {
 	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
 
