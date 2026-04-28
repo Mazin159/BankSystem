@@ -882,6 +882,54 @@ bool DeleteUserByUsername(string Username, vector<stUser>& vUsers)
 
 	return false;
 }
+stUser ChangeUserInfo(string Username)
+{
+	stUser User;
+	User.Name = Username;
+
+	cout << "\nEnter New Password? ";
+	cin >> User.Password;
+
+	User.Permissions = ReadPermissionsToSet();
+
+	return User;
+}
+bool UpdateUserByUsername(string Username, vector<stUser>& vUsers)
+{
+	stUser User;
+
+	if (FindUserByUsername(Username, vUsers, User))
+	{
+		char Ans;
+		cout << "\nAre you sure you want update this user? y/n? ";
+		cin >> Ans;
+
+		if (Ans == 'y' || Ans == 'Y')
+		{
+			for (stUser& U : vUsers)
+			{
+				if (U.Name == Username)
+				{
+					U = ChangeUserInfo(Username);
+					break;
+				}
+			}
+
+			SaveUsersToFile(vUsers);
+			cout << "\nUser Updated Successfully.\n";
+			return true;
+		}
+	}
+	else
+	{
+		cout << "\nUser Not Found!\n";
+		return false;
+	}
+
+	return false;
+}
+
+
 void ShowAllClientsScreen() {
 	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
 
