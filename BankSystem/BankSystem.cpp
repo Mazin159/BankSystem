@@ -733,6 +733,26 @@ void PrintUserRecord(stUser User)
 		<< "| " << setw(10) << User.Permissions
 		<< "|\n";
 }
+void PrintAllUsersData(vector<stUser> vUsers)
+{
+	cout << "\n\t\t\tUsers List (" << vUsers.size() << ") User(s)\n";
+
+	cout << "-------------------------------------------------------------\n";
+
+	cout << "| " << left << setw(20) << "Username"
+		<< "| " << setw(15) << "Password"
+		<< "| " << setw(10) << "Permissions"
+		<< "|\n";
+
+	cout << "-------------------------------------------------------------\n";
+
+	for (stUser User : vUsers)
+	{
+		PrintUserRecord(User);
+	}
+
+	cout << "-------------------------------------------------------------\n";
+}
 
 void ShowAllClientsScreen() {
 	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
@@ -1062,7 +1082,7 @@ int main()
 	User.Password = "333";
 	User.Permissions = 16;
 
-	ShowMainMenue(User);
+	PrintUserRecord(User);
 
 	//ShowMainMenue();
 
